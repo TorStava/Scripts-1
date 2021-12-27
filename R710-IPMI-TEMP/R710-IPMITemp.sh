@@ -20,12 +20,10 @@ MAXTEMP=27
 TEMP=$(ipmitool sdr type temperature | grep Ambient | awk '{print $10}')
 
 
-if [[ $TEMP > $MAXTEMP ]];
+if [ $TEMP -gt $MAXTEMP ];
   then
-    printf "Warning: Temperature is too high! Activating dynamic fan control! ($TEMP C)"
     echo "Warning: Temperature is too high! Activating dynamic fan control! ($TEMP C)"
     ipmitool raw 0x30 0x30 0x01 0x01
   else
-    printf "Temperature is OK ($TEMP C)"
     echo "Temperature is OK ($TEMP C)"
 fi
